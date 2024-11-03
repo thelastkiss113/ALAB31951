@@ -1,3 +1,4 @@
+// db/conn.mjs
 import mongoose from "mongoose";
 
 // Connect to MongoDB using Mongoose
