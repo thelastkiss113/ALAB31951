@@ -1,17 +1,20 @@
 // db/conn.mjs
-import mongoose from "mongoose";
 
-// Connect to MongoDB using Mongoose
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const uri = process.env.ATLAS_URI;
 
-try {
-  await mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  console.log("Connected to MongoDB via Mongoose");
-} catch (e) {
-  console.error("Error connecting to MongoDB:", e);
-}
+// Connect to MongoDB
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(uri);
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+  }
+};
 
-export default mongoose;
+// Call the function to connect
+connectToDatabase();

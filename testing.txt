@@ -1,0 +1,90 @@
+POSTMAN
+GET ENDPOINT:
+
+GET http://localhost:3000/learner/:id/avg-class
+
+Original Data:
+{
+  "_id": {
+    "$oid": "56d5f7eb604eb380b0d8d940"
+  },
+  "scores": [
+    {
+      "type": "exam",
+      "score": 0.448170465230735
+    },
+    {
+      "type": "quiz",
+      "score": 46.72085026338758
+    },
+    {
+      "type": "homework",
+      "score": 76.4269388562503
+    },
+    {
+      "type": "homework",
+      "score": 82.46164495054096
+    }
+  ],
+  "class_id": 2,
+  "student_id": 11
+}
+
+
+POST ENDPOINT: 
+POST http://localhost:3000/grades
+Body(JSON)
+{
+  "class_id": 2,
+  "student_id": 11,
+  "scores": [
+    {
+      "type": "exam",
+      "score": 0.5
+    },
+    {
+      "type": "quiz",
+      "score": 85
+    },
+    {
+      "type": "homework",
+      "score": 90
+    }
+  ]
+}
+
+
+Checking with GET request to see if it worked = Successful!
+New Data
+
+{
+  "_id": {
+    "$oid": "6727b9500c41698cb2d07e6d"
+  },
+  "scores": [
+    {
+      "type": "exam",
+      "score": 0.5,
+      "_id": {
+        "$oid": "6727b9500c41698cb2d07e6e"
+      }
+    },
+    {
+      "type": "quiz",
+      "score": 85,
+      "_id": {
+        "$oid": "6727b9500c41698cb2d07e6f"
+      }
+    },
+    {
+      "type": "homework",
+      "score": 90,
+      "_id": {
+        "$oid": "6727b9500c41698cb2d07e70"
+      }
+    }
+  ],
+  "class_id": 2,
+  "student_id": 11,
+  "__v": 0
+}

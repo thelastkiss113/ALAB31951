@@ -1,21 +1,32 @@
-//index.mjs
+// index.mjs
 
 import express from "express";
-
-const PORT = 5050;
-const app = express();
-
-import grades from "./routes/grades.mjs";
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
+import gradesRouter from './routes/grades.mjs';
 import grades_agg from "./routes/grades_agg.mjs";
 
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+const app = express();
+
+// Middleware
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the API.");
-});
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-app.use("/grades", grades);
+// Routes
+app.use("/grades", gradesRouter);
 app.use("/grades", grades_agg);
+
+// Default route
+app.get('/', (req, res) => {
+  res.send('Welcome to the Grades API! Use /grades to interact with the grades data.');
+});
 
 // Global error handling
 app.use((err, _req, res, next) => {

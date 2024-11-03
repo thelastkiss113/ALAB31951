@@ -1,21 +1,31 @@
 // models/Grade.mjs
 
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-// Schema for individual scores within a grade document
 const scoreSchema = new mongoose.Schema({
-  type: String, // the type of score (quiz, exam, homework)
-  score: Number, // the score value
+  type: {
+    type: String,
+    required: true
+  },
+  score: {
+    type: Number,
+    required: true
+  }
 });
 
-// Main schema for a grade document
 const gradeSchema = new mongoose.Schema({
-  learner_id: Number, // ID of the learner
-  class_id: String, // ID of the class
-  scores: [scoreSchema], // array of scores for different types of scores
+  scores: [scoreSchema], // An array of score objects
+  class_id: {
+    type: Number,
+    required: true
+  },
+  student_id: {
+    type: Number,
+    required: true
+  }
 });
 
-// Create the Mongoose model for the `grades` collection
-const Grade = mongoose.model("Grade", gradeSchema);
+// Create the model
+const Grade = mongoose.model('Grade', gradeSchema);
 
 export default Grade;

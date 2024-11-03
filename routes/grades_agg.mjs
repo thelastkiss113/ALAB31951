@@ -1,4 +1,5 @@
 // routes/grades_agg.mjs
+
 import express from "express";
 import Grade from "../models/Grade.mjs";
 
@@ -10,7 +11,7 @@ const router = express.Router();
 router.get("/learner/:id/avg-class", async (req, res) => {
   try {
     let result = await Grade.aggregate([
-      { $match: { learner_id: Number(req.params.id) } },
+      { $match: { student_id: Number(req.params.id) } }, // Change to student_id based on your schema
       { $unwind: "$scores" },
       {
         $group: {
@@ -59,8 +60,11 @@ router.get("/learner/:id/avg-class", async (req, res) => {
       },
     ]);
 
-    if (!result || result.length === 0) res.status(404).send("Not found");
-    else res.status(200).send(result);
+    if (!result || result.length === 0) {
+      return res.status(404).send("Not found");
+    } else {
+      res.status(200).send(result);
+    }
   } catch (e) {
     console.error(e);
     res.status(500).send("Internal server error");
